@@ -1,0 +1,17 @@
+<div class="smartcard">
+  <h1>Enter smartcard code</h1>
+  <form [formGroup]="form" (ngSubmit)="search()">
+    <mat-form-field class="example-full-width" appearance="fill">
+      <mat-label>Smartcard code</mat-label>
+      <input matInput formControlName="code" />
+    </mat-form-field>
+    <button
+      type="submit"
+      [disabled]="form.invalid"
+      mat-raised-button
+      color="primary"
+    >
+      Search
+    </button>
+  </form>
+</div>

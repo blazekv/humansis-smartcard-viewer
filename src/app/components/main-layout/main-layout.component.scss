@@ -1,0 +1,18 @@
+.container-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2em;
+
+  .container {
+    width: 80vw;
+  }
+}
+
+.menu-title {
+  margin-right: 2em;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}

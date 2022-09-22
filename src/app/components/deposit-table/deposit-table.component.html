@@ -1,0 +1,34 @@
+<table mat-table matSort [dataSource]="deposits" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+    <td mat-cell *matCellDef="let element">
+      {{ element.value | currency: element.currency }}
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="distributed">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Distributed</th>
+    <td mat-cell *matCellDef="let element">{{ element.distributed }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateOfDistribution">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>
+      Date of distribution
+    </th>
+    <td mat-cell *matCellDef="let element">{{ element.dateOfDistribution }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

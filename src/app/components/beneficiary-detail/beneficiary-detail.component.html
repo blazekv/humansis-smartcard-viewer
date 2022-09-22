@@ -1,0 +1,16 @@
+<ng-container *ngIf="beneficiary">
+  <strong>Name (EN)</strong>: {{ beneficiary.enGivenName }}
+  {{ beneficiary.enFamilyName }}<br />
+  <strong>Name (local)</strong>: {{ beneficiary.localGivenName }}
+  {{ beneficiary.localParentsName }}<br />
+  <strong>Date of birth</strong>: {{ beneficiary.dateOfBirth | date }}<br />
+  <strong>Head</strong>: {{ beneficiary.isHead }}<br />
+  <strong>Gender</strong>:
+  <ng-container *ngIf="beneficiary.gender === 'F'">
+    <mat-icon matTooltip="woman">woman</mat-icon>
+  </ng-container>
+  <ng-container *ngIf="beneficiary.gender === 'M'">
+    <mat-icon matTooltip="man">man</mat-icon>
+  </ng-container>
+  <br />
+</ng-container>

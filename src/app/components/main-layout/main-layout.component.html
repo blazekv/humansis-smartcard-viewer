@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <button
+    mat-icon-button
+    class="example-icon favorite-icon"
+    aria-label="Example icon-button with heart icon"
+  >
+    <mat-icon>credit_card</mat-icon>
+  </button>
+  <span class="menu-title">Smartcard viewer</span>
+
+  <a
+    [routerLink]="['/']"
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
+    Search
+  </a>
+  <span class="example-spacer"></span>
+  <div
+    [routerLink]="['/']"
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with share icon"
+  >
+    <mat-icon matTooltip="Logout">logout</mat-icon>
+  </div>
+</mat-toolbar>
+<div class="container-wrapper">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
