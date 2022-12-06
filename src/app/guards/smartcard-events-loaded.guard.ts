@@ -5,12 +5,14 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { filter, map, Observable, take, withLatestFrom } from 'rxjs';
+import { filter, first, map, Observable, take } from 'rxjs';
 import { CoreModuleState } from '../state';
 import { Store } from '@ngrx/store';
-import { getSmartcardEvents } from '../state/smartcard/smartcard.selectors';
+import {
+  getSmartcardEvents,
+  selectEventsRequestFinished,
+} from '../state/smartcard/smartcard.selectors';
 import { getRouterParamSelector } from '../state/router/router.selectors';
-import { tap } from 'rxjs/operators';
 import { loadSmartcardEvents } from '../state/smartcard/smartcard.actions';
 
 @Injectable({
@@ -21,29 +23,28 @@ export class SmartcardEventsLoadedGuard implements CanActivate {
 
   canActivate(
     route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-    booleanObservable:
-      | Observable<boolean | UrlTree>
-      | Promise<boolean | UrlTree>
-      | boolean
-      | UrlTree = this.checkStore()
+    state: RouterStateSnapshot
   ):
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return booleanObservable;
+    this.store
+      .select(getRouterParamSelector('code'))
+      .pipe(
+        filter((code) => code),
+        first()
+      )
+      .subscribe((code) => {
+        this.store.dispatch(loadSmartcardEvents({ code }));
+      });
+    return this.checkStore();
   }
 
   private checkStore() {
-    return this.store.select(getSmartcardEvents).pipe(
-      withLatestFrom(this.store.select(getRouterParamSelector('code'))),
-      tap(([events, code]) => {
-        this.store.dispatch(loadSmartcardEvents({ code }));
-      }),
-      filter(([events]) => !!events),
-      take(1),
-      map(() => true)
+    return this.store.select(selectEventsRequestFinished).pipe(
+      filter((finished) => finished),
+      take(1)
     );
   }
 }

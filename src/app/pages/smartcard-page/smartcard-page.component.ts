@@ -8,6 +8,7 @@ import {
   getSmartcardHistory,
 } from '../../state/smartcard/smartcard.selectors';
 import { SmartcardEvent } from '../../models/smartcard-event';
+import { getRouterParamSelector } from '../../state/router/router.selectors';
 
 @Component({
   selector: 'app-smartcard-page',
@@ -15,6 +16,10 @@ import { SmartcardEvent } from '../../models/smartcard-event';
   styleUrls: ['./smartcard-page.component.scss'],
 })
 export class SmartcardPageComponent implements OnInit {
+  code$: Observable<string | undefined> = this.store.select(
+    getRouterParamSelector('code')
+  );
+
   smartcardHistory$: Observable<SmartcardBeneficiary[] | undefined> =
     this.store.select(getSmartcardHistory);
 

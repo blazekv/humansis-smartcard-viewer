@@ -11,3 +11,17 @@ export const getSmartcardHistory = createSelector(
 export const getSmartcardEvents = createSelector(getSmartcardState, (state) => {
   return state.events;
 });
+
+export const selectHistoryRequestFinished = createSelector(
+  getSmartcardState,
+  (state) => {
+    return state.historyFinished;
+  }
+);
+
+export const selectEventsRequestFinished = createSelector(
+  getSmartcardState,
+  (state) => {
+    return state.eventsFinished;
+  }
+);

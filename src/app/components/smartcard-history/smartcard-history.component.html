@@ -1,4 +1,6 @@
-<ng-container *ngIf="smartcardsHistory">
+<ng-container
+  *ngIf="smartcardsHistory && smartcardsHistory.length > 0; else notFound"
+>
   <mat-form-field appearance="fill">
     <mat-label>Select historic record</mat-label>
     <mat-select (selectionChange)="select($event)">
@@ -18,3 +20,12 @@
     [smartcardEvents]="smartcardEvents"
   ></app-smartcard-detail>
 </ng-container>
+
+<ng-template #notFound>
+  <a [routerLink]="['/']" mat-raised-button>Back</a>
+  <mat-card class="message mat-elevation-z2">
+    <mat-card-content>
+      History of smartcard <strong>{{ code }}</strong> was not found!
+    </mat-card-content>
+  </mat-card>
+</ng-template>

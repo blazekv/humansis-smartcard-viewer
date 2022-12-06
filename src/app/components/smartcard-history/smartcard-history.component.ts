@@ -10,6 +10,9 @@ import { MatSelectChange } from '@angular/material/select';
 })
 export class SmartcardHistoryComponent implements OnInit {
   @Input()
+  code?: string;
+
+  @Input()
   smartcardsHistory?: SmartcardBeneficiary[];
 
   @Input()

@@ -1,4 +1,5 @@
 <app-smartcard-history
+  [code]="(code$ | async)!"
   [smartcardsHistory]="(smartcardHistory$ | async)!"
   [smartcardEvents]="(smartcardEvents$ | async)!"
 ></app-smartcard-history>
