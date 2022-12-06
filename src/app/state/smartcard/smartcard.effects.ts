@@ -5,12 +5,13 @@ import { go } from '../router/router.actions';
 import { SmartcardService } from '../../services/smartcard.service';
 import {
   loadSmartcard,
+  loadSmartcardEvents,
+  loadSmartcardEventsFailure,
+  loadSmartcardEventsSuccess,
   loadSmartcardFailure,
   loadSmartcardSuccess,
 } from './smartcard.actions';
-import { loginFail } from '../user/user.actions';
-import { messageError, messageWarning } from '../message/message.actions';
-import { tap } from 'rxjs/operators';
+import { messageWarning } from '../message/message.actions';
 
 @Injectable()
 export class SmartcardEffects {
@@ -23,9 +24,21 @@ export class SmartcardEffects {
     return this.actions$.pipe(
       ofType(loadSmartcard),
       switchMap(({ code }) => {
-        return from(this.smartcardService.get(code)).pipe(
-          map((data) => loadSmartcardSuccess({ data })),
+        return from(this.smartcardService.getHistory(code)).pipe(
+          map((data) => loadSmartcardSuccess({ data, code })),
           catchError((error: any) => of(loadSmartcardFailure({ error })))
+        );
+      })
+    );
+  });
+
+  loadSmartcardEvents$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadSmartcardEvents),
+      switchMap(({ code }) => {
+        return from(this.smartcardService.getEvents(code)).pipe(
+          map((data) => loadSmartcardEventsSuccess({ data })),
+          catchError((error: any) => of(loadSmartcardEventsFailure({ error })))
         );
       })
     );
@@ -34,7 +47,7 @@ export class SmartcardEffects {
   loadSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadSmartcardSuccess),
-      map(({ data }) => go({ path: ['/smartcard', data.serial_number] }))
+      map(({ code }) => go({ path: ['/smartcard', code] }))
     );
   });
 

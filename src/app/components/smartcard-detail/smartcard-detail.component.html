@@ -43,5 +43,10 @@
     <mat-tab label="Deposits">
       <app-deposit-table [deposits]="smartcard.deposites"></app-deposit-table>
     </mat-tab>
+    <mat-tab label="Events">
+      <app-smartcard-event-table
+        [events]="smartcardEvents"
+      ></app-smartcard-event-table>
+    </mat-tab>
   </mat-tab-group>
 </ng-container>

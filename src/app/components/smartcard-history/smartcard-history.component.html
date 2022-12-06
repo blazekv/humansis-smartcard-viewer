@@ -1,0 +1,20 @@
+<ng-container *ngIf="smartcardsHistory">
+  <mat-form-field appearance="fill">
+    <mat-label>Select historic record</mat-label>
+    <mat-select (selectionChange)="select($event)">
+      <mat-option
+        *ngFor="let smartcardBeneficiary of smartcardsHistory"
+        [value]="smartcardBeneficiary"
+      >
+        {{ smartcardBeneficiary.state }} ({{
+          (smartcardBeneficiary.changed_at | date) ||
+            (smartcardBeneficiary.created_at | date)
+        }})
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <app-smartcard-detail
+    [smartcard]="selected"
+    [smartcardEvents]="smartcardEvents"
+  ></app-smartcard-detail>
+</ng-container>

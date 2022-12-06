@@ -2,7 +2,7 @@ import { Beneficiary } from './beneficiary';
 import { Purchase } from './purchase';
 import { Deposit } from './deposit';
 
-export interface Smartcard {
+export interface SmartcardBeneficiary {
   id: string;
   serial_number: string;
   beneficiary: Beneficiary;

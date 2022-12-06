@@ -2,18 +2,6 @@ import { createAction, props } from '@ngrx/store';
 import { Credentials } from '../../models/credentials';
 import { Login } from '../../models/login';
 
-export const loadUsers = createAction('[User] Load Users');
-
-export const loadUsersSuccess = createAction(
-  '[User] Load Users Success',
-  props<{ data: any }>()
-);
-
-export const loadUsersFailure = createAction(
-  '[User] Load Users Failure',
-  props<{ error: any }>()
-);
-
 export const login = createAction(
   '[User] Login',
   props<{ credentials: Credentials }>()
@@ -26,3 +14,5 @@ export const loginFail = createAction(
   '[User] Login Fail',
   props<{ error: any }>()
 );
+
+export const logout = createAction('[User] Logout');

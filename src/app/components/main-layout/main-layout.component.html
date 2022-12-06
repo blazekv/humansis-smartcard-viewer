@@ -1,4 +1,4 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z4">
   <button
     mat-icon-button
     class="example-icon favorite-icon"
@@ -18,10 +18,10 @@
   </a>
   <span class="example-spacer"></span>
   <div
-    [routerLink]="['/']"
     mat-icon-button
     class="example-icon"
     aria-label="Example icon-button with share icon"
+    (click)="logout()"
   >
     <mat-icon matTooltip="Logout">logout</mat-icon>
   </div>

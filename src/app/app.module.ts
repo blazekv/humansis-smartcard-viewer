@@ -42,6 +42,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { VendorPageComponent } from './pages/vendor-page/vendor-page.component';
+import { VendorEventsLoadedGuard } from './guards/vendor-events-loaded.guard';
+import { VendorEffects } from './state/vendor/vendor.effects';
+import { VendorEventTableComponent } from './components/vendor-event-table/vendor-event-table.component';
+import { SmartcardEventTableComponent } from './components/smartcard-event-table/smartcard-event-table.component';
+import { SmartcardHistoryComponent } from './components/smartcard-history/smartcard-history.component';
+import { MatSelectModule } from '@angular/material/select';
 
 export function storageSyncReducer(reducer: ActionReducer<any>) {
   return storageMetaReducer<any>({
@@ -69,6 +76,10 @@ const metaReducers: Array<MetaReducer<any, any>> = [storageSyncReducer];
     PurchaseTableComponent,
     BeneficiaryDetailComponent,
     MainLayoutComponent,
+    VendorPageComponent,
+    VendorEventTableComponent,
+    SmartcardEventTableComponent,
+    SmartcardHistoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,6 +92,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [storageSyncReducer];
       SmartcardEffects,
       MessageEffects,
       RouterEffects,
+      VendorEffects,
     ]),
     StoreRouterConnectingModule.forRoot({
       routerState: RouterState.Minimal,
@@ -103,6 +115,7 @@ const metaReducers: Array<MetaReducer<any, any>> = [storageSyncReducer];
     MatTooltipModule,
     MatChipsModule,
     MatToolbarModule,
+    MatSelectModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },

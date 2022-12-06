@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { loginSuccess } from './user.actions';
+import { loginSuccess, logout } from './user.actions';
 
 export const userFeatureKey = 'user';
 
@@ -17,6 +17,13 @@ export const userReducer = createReducer(
       ...state,
       id: data.userId,
       token: data.token,
+    };
+  }),
+  on(logout, (state) => {
+    return {
+      ...state,
+      id: undefined,
+      token: undefined,
     };
   })
 );

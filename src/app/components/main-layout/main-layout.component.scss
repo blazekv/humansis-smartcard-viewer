@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 2em;
+  padding-top: 5em;
 
   .container {
     width: 80vw;
@@ -15,4 +15,9 @@
 
 .example-spacer {
   flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  position: fixed;
+  z-index: 10;
 }

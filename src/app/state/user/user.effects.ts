@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { login, loginFail, loginSuccess } from './user.actions';
+import { login, loginFail, loginSuccess, logout } from './user.actions';
 import { catchError, from, map, of, switchMap } from 'rxjs';
 import { UserService } from '../../services/user.service';
 import { go } from '../router/router.actions';
 import { messageError } from '../message/message.actions';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class UserEffects {
@@ -37,6 +38,16 @@ export class UserEffects {
       map(() => {
         return messageError({ message: 'Login failed' });
       })
+    );
+  });
+
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(logout),
+      tap(() => {
+        sessionStorage.removeItem('user');
+      }),
+      map(() => go({ path: ['/login'] }))
     );
   });
 }

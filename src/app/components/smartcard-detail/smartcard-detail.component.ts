@@ -4,7 +4,8 @@ import {
   Input,
   OnInit,
 } from '@angular/core';
-import { Smartcard } from '../../models/smartcard';
+import { SmartcardBeneficiary } from '../../models/smartcardBeneficiary';
+import { SmartcardEvent } from '../../models/smartcard-event';
 
 @Component({
   selector: 'app-smartcard-detail',
@@ -14,7 +15,10 @@ import { Smartcard } from '../../models/smartcard';
 })
 export class SmartcardDetailComponent implements OnInit {
   @Input()
-  smartcard?: Smartcard;
+  smartcard?: SmartcardBeneficiary;
+
+  @Input()
+  smartcardEvents: SmartcardEvent[] = [];
 
   constructor() {}
 

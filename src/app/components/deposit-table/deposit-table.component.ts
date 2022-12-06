@@ -1,10 +1,14 @@
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   Input,
   OnInit,
+  ViewChild,
 } from '@angular/core';
 import { Deposit } from '../../models/deposit';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-deposit-table',
@@ -12,9 +16,15 @@ import { Deposit } from '../../models/deposit';
   styleUrls: ['./deposit-table.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DepositTableComponent implements OnInit {
+export class DepositTableComponent implements OnInit, AfterViewInit {
   @Input()
-  deposits: Deposit[] = [];
+  set deposits(deposits: Deposit[]) {
+    this.dataSource.data = deposits;
+  }
+
+  @ViewChild(MatSort) sort!: MatSort;
+
+  dataSource: MatTableDataSource<Deposit> = new MatTableDataSource<Deposit>();
 
   displayedColumns: string[] = [
     'id',
@@ -26,4 +36,8 @@ export class DepositTableComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
+  }
 }

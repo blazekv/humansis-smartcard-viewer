@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Credentials } from '../models/credentials';
-import { Observable } from 'rxjs';
-import { Login } from '../models/login';
-import { Smartcard } from '../models/smartcard';
+import { map, Observable } from 'rxjs';
+import { SmartcardBeneficiary } from '../models/smartcardBeneficiary';
+import { SmartcardEvent } from '../models/smartcard-event';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,19 @@ export class SmartcardService {
 
   constructor(private http: HttpClient) {}
 
-  public get(code: string): Observable<Smartcard> {
-    return this.http.get<Smartcard>(`${this.BASE_URL}/v1/smartcards/${code}`);
+  public getHistory(code: string): Observable<SmartcardBeneficiary[]> {
+    return this.http
+      .get<{ data: SmartcardBeneficiary[] }>(
+        `${this.BASE_URL}/support-app/v1/smartcards/${code}`
+      )
+      .pipe(map((response) => response.data));
+  }
+
+  public getEvents(code: string): Observable<SmartcardEvent[]> {
+    return this.http
+      .get<{ data: SmartcardEvent[] }>(
+        `${this.BASE_URL}/web-app/v1/smartcard/analytics/smartcards/${code}`
+      )
+      .pipe(map((response) => response.data));
   }
 }

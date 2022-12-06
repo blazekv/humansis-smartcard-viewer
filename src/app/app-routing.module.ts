@@ -7,6 +7,9 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SmartcardLoadedGuard } from './guards/smartcard-loaded.guard';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { VendorPageComponent } from './pages/vendor-page/vendor-page.component';
+import { VendorEventsLoadedGuard } from './guards/vendor-events-loaded.guard';
+import { SmartcardEventsLoadedGuard } from './guards/smartcard-events-loaded.guard';
 
 const routes: Routes = [
   {
@@ -25,7 +28,12 @@ const routes: Routes = [
       {
         path: 'smartcard/:code',
         component: SmartcardPageComponent,
-        canActivate: [SmartcardLoadedGuard],
+        canActivate: [SmartcardLoadedGuard, SmartcardEventsLoadedGuard],
+      },
+      {
+        path: 'vendor/:id',
+        component: VendorPageComponent,
+        canActivate: [VendorEventsLoadedGuard],
       },
     ],
   },
